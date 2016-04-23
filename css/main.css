@@ -457,7 +457,7 @@ button.full-width, .button.full-width {
 	background: #222528;
 }
 .button.yellow {
-	background: #ffd900;
+	background: #0FD5D9;
 }
 .button.yellow:hover {
 	background: #f0cc00;
@@ -517,11 +517,11 @@ button.full-width, .button.full-width {
 	color: #fff;
 }
 .button.stroke.yellow {
-	border-color: #ffd900;
-	color: #ffd900;
+	border-color: #0FD5D9;
+	color: #0FD5D9;
 }
 .button.stroke.yellow:hover {
-	background: #ffd900 !important;
+	background: #0FD5D9 !important;
 	color: #fff;
 }
 .button.stroke.red {
@@ -1799,7 +1799,7 @@ hr {
 	color: #ff6163;
 }
 #message-success {
-	color: #ffd900;
+	color: #0FD5D9;
 }
 #message-warning i, #message-success i {
 	margin-right: 10px;
