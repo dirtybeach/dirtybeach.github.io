@@ -1097,7 +1097,7 @@ footer #go-top {
 footer #go-top a {
 	display: block;
 	padding: 12px 30px;
-	background: #d44d0d;
+	background: #850C09;
 	color: white;
 	text-align: center;
 	font: 12px/24px "raleway-heavy", sans-serif;
@@ -1386,7 +1386,7 @@ hr {
 	width: auto;
 	text-transform: uppercase;
 	letter-spacing: 1.5px;
-	border-color: #d44d0d;
+	border-color: #850C09;
 	color: white;
 	white-space: nowrap;
 	text-shadow: 0 0px 5px black;
@@ -1397,7 +1397,7 @@ hr {
 #hero-slider .flex-caption .button.stroke:hover {
 	color: white;
 	text-shadow: none;
-	background: #d44d0d !important;
+	background: #850C09 !important;
 }
 
 /* Slider Control Nav */
