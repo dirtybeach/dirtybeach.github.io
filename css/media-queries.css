@@ -61,7 +61,7 @@
 		right: 0;
 	}
 	#nav-wrap > a {
-		background: #f26522;
+		background: #D9130F;
 		border: none;
 		color: white;
 		height: 60px;
@@ -144,7 +144,7 @@
 	}
 	#nav-wrap ul#nav li.current > a {
 		background: none;
-		color: #f26522;
+		color: #D9130F;
 	}
 	.js #nav-wrap a.mobile-btn {
 		display: none;
