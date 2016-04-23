@@ -1,0 +1,13 @@
+---
+layout: default
+modal-id: 4
+date: 2014-07-15
+img: game.png
+alt: image-alt
+project-name: Remote Robot Bowling
+project-date: April 2014
+client: Start Bootstrap
+status: Currently Unavailable. This project is OFFLINE
+description: Use this interface to control our robot bowling ball launcher. Aim a left / right on the live feed webcam and then release the ball at the pins.
+
+---

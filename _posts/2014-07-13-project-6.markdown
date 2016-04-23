@@ -1,0 +1,13 @@
+---
+layout: default
+modal-id: 6
+date: 2014-07-15
+img: submarine.png
+alt: image-alt
+project-name: Robot Football
+project-date: April 2014
+client: Start Bootstrap
+status: Currently Unavailable. This project is OFFLINE
+description: Robot sports are taking off in a big way. Control one robot in a 3 a side, 5 a side and full on 11 a side match. This is a great team game of real time robot football.
+
+---

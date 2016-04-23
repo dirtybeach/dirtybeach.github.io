@@ -1,0 +1,13 @@
+---
+layout: default
+modal-id: 3
+date: 2014-07-16
+img: circus.png
+alt: image-alt
+project-name: Drone Racing
+project-date: April 2014
+client: Start Bootstrap
+status: Currently Unavailable. This project is OFFLINE
+description: Use this interface to fly our connected drones. Race around the marked track in real time against another human controlled drone racer.
+
+---
