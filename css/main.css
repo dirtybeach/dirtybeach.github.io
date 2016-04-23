@@ -1044,7 +1044,7 @@ footer {
 	color: #3C4142;	
 }
 footer a, footer a:visited {
-	color: #a43b0a;
+	color: #850C09;
 }
 footer a:hover, footer a:focus {
 	color: white;
@@ -1374,7 +1374,7 @@ hr {
 #hero-slider .flex-caption h1 a {
 	color: white;
 	display: inline-block;
-	border-bottom: 1px solid #a43b0a;
+	border-bottom: 1px solid #850C09;
 }
 #hero-slider .flex-caption h1 span:hover, 
 #hero-slider .flex-caption h1 a:hover {
@@ -1676,7 +1676,7 @@ hr {
 /*  o. Journal Section
 /* =================================================================== */
 #journal {
-	background: #a43b0a url(../images/blog-bg.jpg) no-repeat bottom center fixed;
+	background: #850C09 url(../images/blog-bg.jpg) no-repeat bottom center fixed;
 	-webkit-background-size: cover !important;
 	-moz-background-size: cover !important;
 	background-size: cover !important;
