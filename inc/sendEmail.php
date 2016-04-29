@@ -1,7 +1,7 @@
-﻿<?php
+<?php
 
 // Replace this with your own email address
-$siteOwnersEmail = 'info@myBot.space';
+$siteOwnersEmail = 'info@mybot.space';
 
 
 if($_POST) {
