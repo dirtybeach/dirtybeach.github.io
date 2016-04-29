@@ -1,0 +1,60 @@
+##Your code from: /var/www/html/tesp.php to get the controlls
+
+
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+echo 'hello';
+
+echo date("l jS \of F Y h:i:s A");
+
+$item = 0;
+if (isset($_GET['io'])) {
+$item = $_GET['io'];
+}
+
+$pin1 = 17;
+$pin2 = 18;
+
+system("gpio -g mode $pin1 out");
+system("gpio -g mode $pin2 out");
+
+
+if ($item == 1) {
+system("gpio -g write $pin1 1");
+system("gpio -g write $pin2 0");
+} elseif ($item == 2) {
+system("gpio -g write $pin1 0");
+system("gpio -g write $pin2 1");
+} else {
+system("gpio -g write $pin1 0");
+system("gpio -g write $pin2 0");
+}
+
+//system("gpio -g cleanup");
+
+
+?>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-
+transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">;
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h1>R0B0T-T3ST</h1>
+<p>Click?</p>
+
+<ol>
+<li><a href="?io=1">Me?</a></li>
+<li><a href="?io=2">or Me?</a></li>
+<li><a href="?io=0">Not Me!</a></li>
+</ol>
+
+</body>
+</html>

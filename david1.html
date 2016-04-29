@@ -1,0 +1,35 @@
+basic php code for web cam streamer...
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RPi Cam Preview</title>
+    <script src="script_min.js"></script>
+  </head>
+  <body onload="setTimeout('init();', 100);">
+    <center>
+      <div><img id="mjpeg_dest" /></div>
+    </center>
+ </body>
+</html>
+
+
+
+js code (i think this goes in a script tag and is the basic bare bones to our live web cam streamer)
+
+
+var mjpeg_img;
+ 
+function reload_img () {
+  mjpeg_img.src = "cam_pic.php?time=" + new Date().getTime();
+}
+function error_img () {
+  setTimeout("mjpeg_img.src = 'cam_pic.php?time=' + new Date().getTime();", 100);
+}
+function init() {
+  mjpeg_img = document.getElementById("mjpeg_dest");
+  mjpeg_img.onload = reload_img;
+  mjpeg_img.onerror = error_img;
+  reload_img();
+}
