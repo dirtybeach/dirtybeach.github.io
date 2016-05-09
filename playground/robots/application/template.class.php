@@ -1,7 +1,7 @@
 <?php
-// 2008 Fragile Media Limited. All rights reserved.
-// Use of this code without permission from the owner will result in legal action being taken.
-// Created By: Dave Williams
+// 2016 Dave Williams. All rights reserved.
+// Use of this code without permission from the owner will result in us getting a bit shirty.
+// Created By: Dave Williams | d4v3w
 
 //require_once('database.mysqli.class.php');
 require_once('library.class.php');

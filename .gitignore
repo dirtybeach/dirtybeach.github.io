@@ -13,6 +13,7 @@ logs
 results
 .settings
 .project
+cache
 
 node_modules
 npm-shrinkwrap.json

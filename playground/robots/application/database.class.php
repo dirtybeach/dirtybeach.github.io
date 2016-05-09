@@ -1,15 +1,15 @@
 <?php
-// 2008 Fragile Media Limited. All rights reserved.
-// Use of this code without permission from the owner will result in legal action being taken.
-// Created By: Dave Williams
+// 2016 Dave Williams. All rights reserved.
+// Use of this code without permission from the owner will result in us getting a bit shirty.
+// Created By: Dave Williams | d4v3w
 
 class database {
-	
+
 	var $config;
 	var $link;
 	var $result;
 	var $debug = false;
-	
+
 	function __construct($debug = false) {
 		$this->debug = $debug;
 		$config = array();
@@ -21,7 +21,7 @@ class database {
 			if ($this->debug) echo('Please enter database credentials.<br />');
 		}
 	}
-	
+
 	public function query($query) {
 		if ($this->result = mysql_db_query($this->config['DBNAME'], $query, $this->link)) {
 			if ($this->debug) echo($query.'<br />');
@@ -31,7 +31,7 @@ class database {
 			return false;
 		}
 	}
-	
+
 	public function fetchArray() {
 		if ($Row = mysql_fetch_assoc($this->result)) {
 			return $Row;
@@ -40,7 +40,7 @@ class database {
 			return false;
 		}
 	}
-	
+
 	public function numRows() {
 		$numRows = 0;
 		if (mysql_num_rows($this->result)) {
@@ -49,7 +49,7 @@ class database {
 		}
 		return $numRows;
 	}
-	
+
 	public function affectedRows() {
 		if (($affectedRows = mysql_affected_rows($this->link)) >= 0) {
 			return $affectedRows;

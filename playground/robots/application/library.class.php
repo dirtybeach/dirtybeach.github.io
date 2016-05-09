@@ -1,4 +1,7 @@
 <?php
+// 2016 Dave Williams. All rights reserved.
+// Use of this code without permission from the owner will result in us getting a bit shirty.
+// Created By: Dave Williams | d4v3w
 
 global $msg;
 

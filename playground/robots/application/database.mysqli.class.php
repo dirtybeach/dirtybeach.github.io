@@ -1,20 +1,20 @@
 <?php
-// 2008 Fragile Media Limited. All rights reserved.
-// Use of this code without permission from the owner will result in legal action being taken.
-// Created By: Dave Williams
+// 2016 Dave Williams. All rights reserved.
+// Use of this code without permission from the owner will result in us getting a bit shirty.
+// Created By: Dave Williams | d4v3w
 
 class database {
-	
+
 	var $link;
 	var $result;
 	var $debug = true;
-	
+
 	public function database($debug = false) {
 		$this->debug = $debug;
 		require_once('config.inc.php');
 		$this->link = mysqli_connect($GLOBALS['DB_HOST'], $GLOBALS['DB_USERNAME'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME'], $GLOBALS['DB_PORT']);
 	}
-	
+
 	public function query($query) {
 		if ($this->result = mysqli_query($this->link, $query)) {
 			if ($this->debug) echo($query.'<br />');
@@ -24,7 +24,7 @@ class database {
 			return false;
 		}
 	}
-	
+
 	public function fetchArray() {
 		if ($Row = mysqli_fetch_assoc($this->result)) {
 			return $Row;
@@ -33,7 +33,7 @@ class database {
 			return false;
 		}
 	}
-	
+
 	public function numRows() {
 		$numRows = 0;
 		if (mysqli_num_rows($this->result)) {
@@ -42,7 +42,7 @@ class database {
 		}
 		return $numRows;
 	}
-	
+
 	public function affectedRows() {
 		if (($affectedRows = mysqli_affected_rows($this->link)) >= 0) {
 			return $affectedRows;
@@ -51,9 +51,9 @@ class database {
 			return false;
 		}
 	}
-	
+
 	public function closeConnection() {
-		mysqli_close($this->link);	
+		mysqli_close($this->link);
 	}
 }
 ?>

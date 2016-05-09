@@ -32,7 +32,7 @@ try {
     //  $caching = false;
     }
 
-    if ($caching && checkCacheFile($cacheFile, $cacheFolder)) {
+    if ($caching && $library->checkCacheFile($cacheFile, $cacheFolder)) {
         //echo('CACHED');
         // END SITE  - USE CACHE
         exit;
@@ -49,7 +49,7 @@ try {
 
         // is caching on - if true create cache file
         if ($caching) {
-            createCacheFile($thesite, $cacheFile, $cacheFolder);
+            $library->createCacheFile($thesite, $cacheFile, $cacheFolder);
         }
 
         // Draw page to screen
