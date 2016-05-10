@@ -2,106 +2,127 @@
  * robot.js | jQuery Plugin
  * Name: robotUtil
  * Description: Client side controller utils for robots
- * Based on 'jQuery Plugin Boilerplate' by Stefan Gabos 2011
  */
 
-(function($) {
-
-    $.robotUtil = function(element, options) {
-
-        // plugin's default options
-        // this is private property and is  accessible only from inside the plugin
+(function ($, console) {
+    'use strict';
+    $.robotUtil = function (element, options) {
+        console.log('robotUtil...');
         var defaults = {
+            id : 1,
+            onInteract : function () {
+            }
+        },
+        plugin = this,
+        $element = $(element),
 
-            foo: 'bar',
+        doRobot = function (pin, enable) {
+            console.log('doRobot...');
+            var toggle = (enable) ? 'on' : 'off',
+                ajaxUrl = 'http://192.168.1.113/ebot/' + pin + toggle + '.php';
+            console.log('robot url: ' + ajaxUrl);
+            $.ajax({
+                url: ajaxUrl,
+                //dataType: 'json',
+                data: {
+                    toggle: enable,
+                    pin: pin
+                },
+                beforeSend: function () {
+                    console.log('beforeSend...');
+                },
+                success: function () {
+                    //console.log('sucessful ajax...');
+                },
+                statusCode: {
+                    404: function() {
+                        console.log('Page not Found!');
+                    }
+                }
+            }).done(function () {
+                console.log('Done Ajax');
+            });
+        },
 
-            // if your plugin is event-driven, you may provide callback capabilities
-            // for its events. execute these functions before or after events of your 
-            // plugin, so that users may customize those particular events without 
-            // changing the plugin's code
-            onFoo: function() {}
+        robotLeft = function () {
+            console.log('turnLeft...');
+            doRobot(17, 1);
+            doRobot(18, 0);
+        },
 
+        robotRight = function () {
+            console.log('turnRight...');
+            doRobot(17, 0);
+            doRobot(18, 1);
+        },
+
+        robotFwd = function () {
+            console.log('robotFwd...');
+            doRobot(17, 1);
+            doRobot(18, 1);
+        },
+
+        robotStop = function () {
+            console.log('robotStop...');
+            doRobot(17, 0);
+            doRobot(18, 0);
+        },
+
+        setupListeners = function () {
+            console.log('setupListeners...');
+            $element.keypress(function (event) {
+                console.log('Key press: ' + event.which);
+            });
+            $element.keydown(function (event) {
+                console.log('Key down: ' + event.which);
+                if (event.which === 38) {
+                    event.preventDefault();
+                    robotFwd();
+                }
+                if (event.which === 37) {
+                    event.preventDefault();
+                    robotLeft();
+                }
+                if (event.which === 39) {
+                    event.preventDefault();
+                    robotRight();
+                }
+                if (event.which === 40) {
+                    event.preventDefault();
+                    robotStop();
+                }
+            });
         };
-
-        // to avoid confusions, use "plugin" to reference the 
-        // current instance of the object
-        var plugin = this;
-
-        // this will hold the merged default, and user-provided options
-        // plugin's properties will be available through this object like:
-        // plugin.settings.propertyName from inside the plugin or
-        // element.data('robotUtil').settings.propertyName from outside the plugin, 
-        // where "element" is the element the plugin is attached to;
         plugin.settings = {};
 
-        var $element = $(element); // reference to the jQuery version of DOM element
-            // element = element;    // reference to the actual DOM element
-
-        // the "constructor" method that gets called when the object is created
-        plugin.init = function() {
-
-            // the plugin's final properties are the merged default and 
-            // user-provided options (if any)
+        // public methods
+        plugin.init = function () {
+            console.log('plugin init...');
             plugin.settings = $.extend({}, defaults, options);
 
-            // code goes here
-
+            setupListeners();
         };
-
-        // public methods
-        // these methods can be called like:
-        // plugin.methodName(arg1, arg2, ... argn) from inside the plugin or
-        // element.data('robotUtil').publicMethod(arg1, arg2, ... argn) from outside 
-        // the plugin, where "element" is the element the plugin is attached to;
 
         // a public method. for demonstration purposes only - remove it!
-        plugin.foo_public_method = function() {
-
-            // code goes here
-
+        plugin.stopRobot = function () {
+            console.log('stop robot!');
+            robotStop();
         };
 
-        // private methods
-        // these methods can be called only from inside the plugin like:
-        // methodName(arg1, arg2, ... argn)
-
-        // a private method. for demonstration purposes only - remove it!
-        var foo_private_method = function() {
-
-            // code goes here
-
-        };
-
-        // fire up the plugin!
-        // call the "constructor" method
         plugin.init();
-
     };
 
     // add the plugin to the jQuery.fn object
-    $.fn.robotUtil = function(options) {
-
+    $.fn.robotUtil = function (options) {
         // iterate through the DOM elements we are attaching the plugin to
-        return this.each(function() {
-
+        return this.each(function () {
             // if plugin has not already been attached to the element
             if (undefined === $(this).data('robotUtil')) {
-
-                // create a new instance of the plugin
-                // pass the DOM element and the user-provided options as arguments
                 var plugin = new $.robotUtil(this, options);
-
-                // in the jQuery version of the element
-                // store a reference to the plugin object
-                // you can later access the plugin and its methods and properties like
-                // element.data('robotUtil').publicMethod(arg1, arg2, ... argn) or
-                // element.data('robotUtil').settings.propertyName
                 $(this).data('robotUtil', plugin);
-
             }
-
         });
-
     };
+}(jQuery, console));
 
-})(jQuery);
+$(window).robotUtil();
