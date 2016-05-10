@@ -55,16 +55,16 @@
             console.log('turnLeft...');
             doRobot(17, 0);
             doRobot(28, 0);
+            doRobot(18, 0);
             doRobot(27, 1);
-            doRobot(18, 1);
         },
 
         robotRight = function () {
             console.log('turnRight...');
             doRobot(27, 0);
             doRobot(18, 0);
+            doRobot(28, 0);
             doRobot(17, 1);
-            doRobot(28, 1);
         },
 
         robotFwd = function () {
