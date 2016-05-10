@@ -54,7 +54,7 @@
         robotLeft = function () {
             console.log('turnLeft...');
             doRobot(17, 0);
-            doRobot(28, 0);
+            doRobot(22, 0);
             doRobot(18, 0);
             doRobot(27, 1);
         },
@@ -63,7 +63,7 @@
             console.log('turnRight...');
             doRobot(27, 0);
             doRobot(18, 0);
-            doRobot(28, 0);
+            doRobot(22, 0);
             doRobot(17, 1);
         },
 
