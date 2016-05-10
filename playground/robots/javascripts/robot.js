@@ -2,109 +2,112 @@
  * robot.js | jQuery Plugin
  * Name: robotUtil
  * Description: Client side controller utils for robots
+ * 
+ * Pins
+ * 17: right {on: 'fwd'}
+ * 18: right {on: 'back'}
+ * 27: left {on: 'fwd'}
+ * 22: left {on: 'back'}
  */
 
 (function ($, console) {
     'use strict';
     $.robotUtil = function (element, options) {
-        console.log('robotUtil...');
         var defaults = {
-            id : 1,
-            onInteract : function () {
+            pins: {
+                left: {
+                    fwd: 27,
+                    back: 22
+                },
+                right: {
+                    fwd: 17,
+                    back: 18
+                }
+            },
+            keys: {
+                left: 37,
+                right: 39,
+                forward: 38,
+                reverse: 40,
+                stop: 13
+            },
+            url: 'http://192.168.1.113/ebot/',
+            script: '',
+            getStatus: function () {
+                return 'Status';
             }
         },
         plugin = this,
         $element = $(element),
 
-        doRobot = function (pin, enable) {
-            console.log('doRobot...');
-            var toggle = (enable) ? 'on' : 'off',
-                ajaxUrl = 'http://192.168.1.113/ebot/' + pin + toggle + '.php';
-            console.log('robot url: ' + ajaxUrl);
-            $.ajax({
-                url: ajaxUrl,
-                //dataType: 'json',
-                //data: {
-                //    toggle: enable,
-                //    pin: pin
-                //},
-                beforeSend: function () {
-                    console.log('beforeSend...');
-                },
-                success: function () {
-                    //console.log('sucessful ajax...');
-                },
-                statusCode: {
-                    404: function() {
-                        console.log('Page not Found!');
-                    }
-                }
-            }).done(function () {
-                console.log('Done Ajax');
-            });
+        log = function (msg, debug) {
+            if (!debug) {
+                console.log(msg);
+            }
         },
         
-        /*
-         * 17: right {on: 'fwd'}
-         * 18: right {on: 'back'}
-         * 27: left {on: 'fwd'}
-         * 22: left {on: 'back'}
-         */
+        running = false,
 
-        robotLeft = function () {
-            console.log('turnLeft...');
-            doRobot(17, 0);
-            doRobot(22, 0);
-            doRobot(18, 0);
-            doRobot(27, 1);
-        },
-
-        robotRight = function () {
-            console.log('turnRight...');
-            doRobot(27, 0);
-            doRobot(18, 0);
-            doRobot(22, 0);
-            doRobot(17, 1);
-        },
-
-        robotFwd = function () {
-            console.log('robotFwd...');
-            doRobot(22, 0);
-            doRobot(18, 0);
-            doRobot(17, 1);
-            doRobot(27, 1);
-        },
-
-        robotStop = function () {
-            console.log('robotStop...');
-            doRobot(17, 0);
-            doRobot(18, 0);
-            doRobot(22, 0);
-            doRobot(27, 0);
+        doRobot = function (pin, enable) {
+            var toggle = (enable) ? 'on' : 'off',
+                    ajaxUrl = plugin.settings.url;
+            ajaxUrl = (plugin.settings.script) ? ajaxUrl + plugin.settings.script : ajaxUrl + pin + toggle + '.php';
+            if (!running) {
+                log('robot url: ' + ajaxUrl);
+                running = true;
+                $.ajax({
+                    url: ajaxUrl,
+                    async: false,
+                    //dataType: 'json',
+                    //data: {
+                    //    toggle: enable,
+                    //    pin: pin
+                    //},
+                    beforeSend: function () {
+                        log('Sending...', true);
+                    },
+                    success: function () {
+                        log('sucessful ajax...', true);
+                    },
+                    statusCode: {
+                        404: function() {
+                            log('Page not Found! ' + ajaxUrl);
+                        }
+                    },
+                    error: function () {
+                        log('ERROR ajax... ' + ajaxUrl);
+                        running = false;
+                    }
+                }).done(function () {
+                    log('Done Ajax', true);
+                    running = false;
+                });
+            }
         },
 
         setupListeners = function () {
-            console.log('setupListeners...');
+            log('setupListeners...', true);
             $element.keypress(function (event) {
-                console.log('Key press: ' + event.which);
+                log('Key press: ' + event.which, true);
+                if (event.which === plugin.settings.keys.stop) {
+                    event.preventDefault();
+                    plugin.stop();
+                }
             });
             $element.keydown(function (event) {
-                console.log('Key down: ' + event.which);
-                if (event.which === 38) {
+                log('Key down: ' + event.which, true);
+                if (event.which === plugin.settings.keys.forward) {
                     event.preventDefault();
-                    robotFwd();
-                }
-                if (event.which === 37) {
+                    plugin.forward();
+                } else if (event.which === plugin.settings.keys.left) {
                     event.preventDefault();
-                    robotLeft();
-                }
-                if (event.which === 39) {
+                    plugin.left();
+                } else if (event.which === plugin.settings.keys.right) {
                     event.preventDefault();
-                    robotRight();
-                }
-                if (event.which === 40) {
+                    plugin.right();
+                } else if (event.which === plugin.settings.keys.reverse) {
                     event.preventDefault();
-                    robotStop();
+                    plugin.reverse();
                 }
             });
         };
@@ -112,26 +115,55 @@
 
         // public methods
         plugin.init = function () {
-            console.log('plugin init...');
+            log('plugin init...', false);
             plugin.settings = $.extend({}, defaults, options);
 
             setupListeners();
         };
 
-        // a public method. for demonstration purposes only - remove it!
-        plugin.stopRobot = function () {
-            console.log('stop robot!');
-            robotStop();
+        plugin.right = function () {
+            log('Right...');
+            plugin.cleanup();
+            doRobot(plugin.settings.pins.right.fwd, true);
+        };
+
+        plugin.left = function () {
+            log('Left...');
+            plugin.cleanup();
+            doRobot(plugin.settings.pins.left.fwd, true);
+        };
+
+        plugin.forward = function () {
+            log('Fwd...');
+            plugin.cleanup();
+            doRobot(plugin.settings.pins.right.fwd, true);
+            doRobot(plugin.settings.pins.left.fwd, true);
+        };
+
+        plugin.reverse = function () {
+            log('Reverse...');
+            plugin.cleanup();
+            doRobot(plugin.settings.pins.right.back, true);
+            doRobot(plugin.settings.pins.left.back, true);
+        };
+
+        plugin.stop = function () {
+            log('Stop...');
+            plugin.cleanup();
+        };
+
+        plugin.cleanup = function () {
+            doRobot(plugin.settings.pins.right.back, false);
+            doRobot(plugin.settings.pins.left.back, false);
+            doRobot(plugin.settings.pins.right.fwd, false);
+            doRobot(plugin.settings.pins.left.fwd, false);
         };
 
         plugin.init();
     };
 
-    // add the plugin to the jQuery.fn object
     $.fn.robotUtil = function (options) {
-        // iterate through the DOM elements we are attaching the plugin to
         return this.each(function () {
-            // if plugin has not already been attached to the element
             if (undefined === $(this).data('robotUtil')) {
                 var plugin = new $.robotUtil(this, options);
                 $(this).data('robotUtil', plugin);
@@ -140,4 +172,7 @@
     };
 }(jQuery, console));
 
-$(window).robotUtil();
+$(window).robotUtil({
+    url: 'http://localhost/dirtybeach.github.io/playground/robots/',
+    script: 'index.php'
+});
