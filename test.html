@@ -29,10 +29,140 @@
    <!-- Favicons
 	=================================================== -->
 	<link rel="shortcut icon" href="favicon.png" >
+   <!-- Controls
+   	=================================================== -->
+  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#17on").click(function(){
+        var a = new XMLHttpRequest();
+        a.open("GET","17on.php");
+        a.onreadystatechange=function(){
+          if(a.readyState==4){
+            if(a.status == 200){
+            }
+            else alert("HTTP ERROR");
+          }
+        }
+        a.send();
+      });
+
+      $("#17off").click(function(){
+                                var a = new XMLHttpRequest();
+                                a.open("GET","17off.php");
+                                a.onreadystatechange=function(){
+                                        if(a.readyState==4){
+                                                if(a.status == 200){
+                                                }
+                                                else alert("HTTP ERROR");
+                                        }
+                                }
+                                a.send();
+                        });
+
+      $("#18on").click(function(){
+                                var a = new XMLHttpRequest();
+                                a.open("GET","18on.php");
+                                a.onreadystatechange=function(){
+                                        if(a.readyState==4){
+                                                if(a.status == 200){
+                                                }
+                                                else alert("HTTP ERROR");
+                                        }
+                                }
+                                a.send();
+                        });
+                        $("#18off").click(function(){
+                                var a = new XMLHttpRequest();
+                                a.open("GET","18off.php");
+                                a.onreadystatechange=function(){
+                                        if(a.readyState==4){
+                                                if(a.status == 200){
+                                                }
+                                                else alert("HTTP ERROR");
+                                        }
+                                }
+                                a.send();
+                        });
+
+                        $("#27on").click(function(){
+                          var a = new XMLHttpRequest();
+                          a.open("GET","27on.php");
+                          a.onreadystatechange=function(){
+                            if(a.readyState==4){
+                              if(a.status == 200){
+                              }
+                              else alert("HTTP ERROR");
+                            }
+                          }
+                          a.send();
+                        });
+
+                        $("#27off").click(function(){
+                                                  var a = new XMLHttpRequest();
+                                                  a.open("GET","27off.php");
+                                                  a.onreadystatechange=function(){
+                                                          if(a.readyState==4){
+                                                                  if(a.status == 200){
+                                                                  }
+                                                                  else alert("HTTP ERROR");
+                                                          }
+                                                  }
+                                                  a.send();
+                                          });
+
+                        $("#22on").click(function(){
+                                                  var a = new XMLHttpRequest();
+                                                  a.open("GET","22on.php");
+                                                  a.onreadystatechange=function(){
+                                                          if(a.readyState==4){
+                                                                  if(a.status == 200){
+                                                                  }
+                                                                  else alert("HTTP ERROR");
+                                                          }
+                                                  }
+                                                  a.send();
+                                          });
+                                          $("#22off").click(function(){
+                                                  var a = new XMLHttpRequest();
+                                                  a.open("GET","22off.php");
+                                                  a.onreadystatechange=function(){
+                                                          if(a.readyState==4){
+                                                                  if(a.status == 200){
+                                                                  }
+                                                                  else alert("HTTP ERROR");
+                                                          }
+                                                  }
+                                                  a.send();
+                                          });
+    });
+
+
+  </script>
+  <script src="../script_min.js"></script>
+<script>var mjpeg_img;
+function reload_img () {
+mjpeg_img.src = "../cam_pic.php?time=" + new Date().getTime();
+}
+function error_img () {
+setTimeout("mjpeg_img.src = '../cam_pic.php?time=' + new Date().getTime();", 100);
+}
+function init() {
+mjpeg_img = document.getElementById("mjpeg_dest");
+mjpeg_img.onload = reload_img;
+mjpeg_img.onerror = error_img;
+reload_img();
+}</script>
+<!-- not sure if i need this next line
+ =================================================== -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 </head>
 
-<body>
+<!-- first bit of live stream box
+ =================================================== -->
+<body onload="setTimeout('init();', 100);">
+
 
    <div id="top"></div>
    <div id="preloader">
@@ -68,8 +198,9 @@
 		         <li class="current"><a href="index.html#portfolio">Robots.</a></li>
 	            <li><a href="index.html#services">Services.</a></li>
 	            <li><a href="index.html#about">About.</a></li>
-	            <li><a href="index.html#journal">Blog.</a></li>	        
+	            <li><a href="index.html#journal">Blog.</a></li>
 	            <li><a href="index.html#contact">Contact.</a></li>
+
 	         </ul>
 
 	      </nav> <!-- /nav-wrap -->
@@ -88,7 +219,7 @@
 			<div class="twelve columns">
 
 				<h1>Robots<span>.</span></h1>
-				<p>Choose which connected devices you wish to use</p>
+				<p>This is the WebBot Control test page</p>
 
 			</div>
 
@@ -108,40 +239,52 @@
 	         <header class="entry-header">
 
 					<h1 class="entry-title">
-							Building a new gaming network
+							Development Testing Page
 					</h1>
 
 					<div class="entry-meta">
 						<ul>
-							<li>April 26, 2016</li>
+							<li>Bot01, 2016</li>
 							<span class="meta-sep">•</span>
 							<li>
-								<a rel="skills tag" title="" href="#">Branding</a>,
-								<a rel="skills tag" title="" href="#">Photography</a>
+								<a rel="skills tag" title="" href="#">Interface</a>,
+								<a rel="skills tag" title="" href="#">Development</a>
 							</li>
 							<span class="meta-sep">•</span>
-							<li><a rel="client" title="" href="#">styleshout</a></li>
+							<li><a rel="client" title="" href="#">Controls</a></li>
 						</ul>
 					</div>
 
 				</header>
+        <!-- button controls
+        ================================================== -->
+        <center>
+          <div><img id="mjpeg_dest" /></div>
+          <button type="button" id="17on">1</button>
+          <button type="button" id="17off">2</button><br>
+          <button type="button" id="18on">3</button>
+          <button type="button" id="18off">4</button><br>
+          <button type="button" id="27on">5</button>
+          <button type="button" id="27off">6</button><br>
+          <button type="button" id="22on">7</button>
+          <button type="button" id="22off">8</button><br>
+        </center>
 
 				<div class="entry-content">
-					<p class="lead">As the platform grows we hope to host amazing games like robot football and drone racing.</p>
+					<p class="lead">As the platform grows we hope to host more amazing games like robot football and drone racing. If you have a couple of tiny RC cars at home, why not conect them here and have some fun?</p>
 
-					<p>Robotic games are really going to grow as a sport as the technology become more available to the general public. Watch this space for updates to our gaming platform.</p>
+					<p>Robotic games are going to evolve very quickly as a sport now the technology become readily available to the general public. Watch this space for updates to our gaming platform.</p>
 				</div>
 
 				<div class="entry-content-media">
 					<div class="post-thumb">
-						<img src="images/portfolio/football.png">
-						<img src="images/portfolio/art.png">
+						<img src="images/portfolio/led.jpg">
 					</div>
 				</div>
 
 				<div class="pagenav group">
-		  			  <span class="prev"><a href="#" rel="prev">Previous</a></span>
-		  			<span class="next"><a href="#" rel="next">Next</a></span>
+		  			  <span class="prev"><a href="portfolio.html" rel="prev">Previous</a></span>
+		  			<span class="next"><a href="portfolio.html" rel="next">Next</a></span>
 	  			</div>
 
 	      </div> <!-- /entry -->
@@ -151,27 +294,11 @@
 
 		<div class="row more-projects">
 
-		   <h1>More Projects.</h1>
+		   <h1>Other projects we hope to get online soon.</h1>
 
 			<div class="tab-whole nine columns centered">
 
 	         <div id="portfolio-wrapper" class="bgrid-half tab-bgrid-halfgroup">
-
-	          	<div class="bgrid item">
-	               <div class="item-wrap">
-
-	                  <a href="ledbot.html">
-                        <img src="images/portfolio/led.jpg" alt="LED Test">
-                        <div class="overlay">
-                        	<div class="portfolio-item-meta">
-          					      <h5>LED Test</h5>
-                              <p>Robot Control Development</p>
-          					   </div>
-                        </div>
-                     </a>
-
-	               </div>
-	          	</div> <!-- /item -->
 
 	            <div class="bgrid item">
 	               <div class="item-wrap">
@@ -188,22 +315,6 @@
 
 	               </div>
 	          	</div> <!-- item end -->
-
-	            <div class="bgrid stack item">
-	               <div class="item-wrap">
-
-	                 <a href="portfolio.html">
-                        <img src="images/portfolio/drone.jpg" alt="Drone">
-                        <div class="overlay">
-                        	<div class="portfolio-item-meta">
-          					      <h5>Drone</h5>
-                              <p>Current Status - ROBOT OFFLINE</p>
-          					   </div>
-                        </div>
-                     </a>
-
-	               </div>
-	         	</div> <!-- item end -->
 
 	            <div class="bgrid item">
 	               <div class="item-wrap">
