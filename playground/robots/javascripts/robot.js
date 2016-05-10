@@ -24,10 +24,10 @@
             $.ajax({
                 url: ajaxUrl,
                 //dataType: 'json',
-                data: {
-                    toggle: enable,
-                    pin: pin
-                },
+                //data: {
+                //    toggle: enable,
+                //    pin: pin
+                //},
                 beforeSend: function () {
                     console.log('beforeSend...');
                 },
@@ -43,29 +43,44 @@
                 console.log('Done Ajax');
             });
         },
+        
+        /*
+         * 17: right {on: 'fwd'}
+         * 18: right {on: 'back'}
+         * 27: left {on: 'fwd'}
+         * 22: left {on: 'back'}
+         */
 
         robotLeft = function () {
             console.log('turnLeft...');
-            doRobot(17, 1);
-            doRobot(18, 0);
+            doRobot(17, 0);
+            doRobot(28, 0);
+            doRobot(27, 1);
+            doRobot(18, 1);
         },
 
         robotRight = function () {
             console.log('turnRight...');
-            doRobot(17, 0);
-            doRobot(18, 1);
+            doRobot(27, 0);
+            doRobot(18, 0);
+            doRobot(17, 1);
+            doRobot(28, 1);
         },
 
         robotFwd = function () {
             console.log('robotFwd...');
+            doRobot(22, 0);
+            doRobot(18, 0);
             doRobot(17, 1);
-            doRobot(18, 1);
+            doRobot(27, 1);
         },
 
         robotStop = function () {
             console.log('robotStop...');
             doRobot(17, 0);
             doRobot(18, 0);
+            doRobot(22, 0);
+            doRobot(27, 0);
         },
 
         setupListeners = function () {
